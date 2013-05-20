@@ -1,0 +1,5 @@
+pcl_version.lo: pcl_version.c ../include/pcl_config.h ../config.h
+
+../include/pcl_config.h:
+
+../config.h:
