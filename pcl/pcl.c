@@ -25,6 +25,7 @@
 #include "pcl_config.h"
 #include "pcl.h"
 #include "pcl_private.h"
+#include "sccmalloc.h"
 
 #if defined(CO_USE_SIGCONTEXT)
 #include <signal.h>
@@ -388,7 +389,8 @@ coroutine_t co_create(void (*func)(void *), void *data, void *stack, int size)
 	if (stack == NULL) {
 		size = (size + sizeof(coroutine) + CO_STK_ALIGN - 1) & ~(CO_STK_ALIGN - 1);
 		
-		stack = malloc(size);
+		//stack = malloc(size);
+		stack= SCCMallocPtr(size);
 		if (stack == NULL)
 			return NULL;
 		alloc = size;

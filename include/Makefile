@@ -184,7 +184,7 @@ target_alias =
 top_build_prefix = ../
 top_builddir = ..
 top_srcdir = ..
-include_HEADERS = pcl.h
+include_HEADERS = pcl.h scc.h bool.h debugging.h distribution.h input.h memfun.h readTileID.h scc_comm_func.h sccmalloc.h scc_config.h
 all: all-am
 
 .SUFFIXES:
