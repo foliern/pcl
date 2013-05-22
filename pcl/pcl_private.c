@@ -26,6 +26,7 @@
 #include "pcl_config.h"
 #include "pcl.h"
 #include "pcl_private.h"
+#include "sccmalloc.h"
 
 static cothread_ctx *co_get_global_ctx(void)
 {
@@ -71,8 +72,9 @@ static __declspec(thread) cothread_ctx *tctx;
 int co_thread_init(void)
 {
 	if ((tctx = (cothread_ctx *)
-	     malloc(sizeof(cothread_ctx))) == NULL) {
-		perror("allocating context");
+	     //malloc(sizeof(cothread_ctx))) == NULL) {
+		SCCMallocPtr(sizeof(cothread_ctx));
+         	perror("allocating context");
 		return -1;
 	}
 	memset(tctx, 0, sizeof(*tctx));
