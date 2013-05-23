@@ -68,7 +68,7 @@ am__base_list = \
 am__installdirs = "$(DESTDIR)$(libdir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libpcl_la_LIBADD =
-am_libpcl_la_OBJECTS = pcl.lo pcl_version.lo pcl_private.lo scc_comm_func.lo scc_config.lo distribution.lo memfun.lo RCCE_memcpy.lo scc.lo sccmalloc.lo readTileID.lo
+am_libpcl_la_OBJECTS = pcl.lo pcl_version.lo pcl_private.lo scc_comm_func.lo scc_config.lo  memfun.lo RCCE_memcpy.lo scc.lo sccmalloc.lo 
 libpcl_la_OBJECTS = $(am_libpcl_la_OBJECTS)
 libpcl_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
@@ -205,14 +205,12 @@ top_srcdir = ..
 INCLUDES = -I$(srcdir)/../include
 lib_LTLIBRARIES = libpcl.la
 libpcl_la_SOURCES = pcl.c pcl_version.c pcl_private.c \
-        config.c \
-        distribution.c \
+        scc_config.c \
         memfun.c \
-        RCCE_memcpy.c \
+     	RCCE_memcpy.c \
         scc.c \
         scc_comm_func.c \
-        sccmalloc.c \
-        readTileID.c
+        sccmalloc.c    
 	
 libpcl_la_LDFLAGS = -version-info 1:11:0 -lpthread
 all: all-am
@@ -294,12 +292,10 @@ include ./$(DEPDIR)/pcl_private.Plo
 include ./$(DEPDIR)/pcl_version.Plo
 include ./$(DEPDIR)/scc_comm_func.Plo
 include ./$(DEPDIR)/scc_config.Plo
-include ./$(DEPDIR)/distribution.Plo
 include ./$(DEPDIR)/memfun.Plo
 include ./$(DEPDIR)/RCCE_memcpy.Plo
 include ./$(DEPDIR)/sccmalloc.Plo
 include ./$(DEPDIR)/scc.Plo
-include ./$(DEPDIR)/readTileID.Plo
 .c.o:
 	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
 	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
