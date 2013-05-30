@@ -32,9 +32,11 @@ static cothread_ctx *co_get_global_ctx(void)
 {
 	static cothread_ctx tctx;
 
+	printf("tctx.co_curr: %p\n",tctx.co_curr); 
 	if (tctx.co_curr == NULL)
 		tctx.co_curr = &tctx.co_main;
-
+	
+	printf("tctx.co_curr: %p\n",tctx.co_curr);
 	return &tctx;
 }
 
@@ -123,8 +125,9 @@ int co_thread_init(void)
 	if (!valid_key)
 		return -1;
 
-	if ((tctx = (cothread_ctx *)
-	     malloc(sizeof(cothread_ctx))) == NULL) {
+	//if ((tctx = (cothread_ctx *)
+	     //malloc(sizeof(cothread_ctx))) == NULL) {
+	if ((tctx = (cothread_ctx *)SCCMallocPtr(sizeof(cothread_ctx))) == NULL) {
 		perror("allocating context");
 		return -1;
 	}
@@ -146,9 +149,13 @@ void co_thread_cleanup(void)
 
 cothread_ctx *co_get_thread_ctx(void)
 {
+	printf("valid_key: %d\n",valid_key);
+	printf("key: %d\n",key);
+	
 	cothread_ctx *tctx = (cothread_ctx *)
 		(valid_key ? pthread_getspecific(key): NULL);
-
+	
+	printf("tctx: %p\n",tctx);
 	/*
 	 * Even in MT mode, allows for the main thread to not call
 	 * the co_thread_init()/co_thread_cleanup() functions.

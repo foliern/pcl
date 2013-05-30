@@ -69,8 +69,22 @@ static int co_ctx_stackdir(void)
 
 static int co_set_context(co_ctx_t *ctx, void *func, char *stkbase, long stksiz)
 {
+
+
+	printf("FIRST SCCMALLOC!!!!\n");
+	void* test1=SCCMallocPtr(20);
+
+	printf("first malloc\n");
+        void* malloc_test=malloc(100);
+        printf("malloc_test address: %p\n",malloc_test);
+
+	printf("FIRST.1 SCCMALLOC!!!!\n");
+        void* test11=SCCMallocPtr(20);
+
 	if (getcontext(&ctx->cc))
 		return -1;
+	printf("SECOND SCCMALLOC!!!!\n");
+	void* test2=SCCMallocPtr(20);
 
 	ctx->cc.uc_link = NULL;
 
@@ -79,6 +93,9 @@ static int co_set_context(co_ctx_t *ctx, void *func, char *stkbase, long stksiz)
 	ctx->cc.uc_stack.ss_flags = 0;
 
 	makecontext(&ctx->cc, func, 1);
+
+	printf("THIRD SCCMALLOC!!!!\n");
+	void* test3=SCCMallocPtr(20);
 
 	return 0;
 }
@@ -363,8 +380,11 @@ static int co_set_context(co_ctx_t *ctx, void *func, char *stkbase, long stksiz)
 
 static void co_switch_context(co_ctx_t *octx, co_ctx_t *nctx)
 {
+	printf("INSIDE SWITCH begin\n");
 	if (setjmp(octx->cc) == 0)
 		longjmp(nctx->cc, 1);
+	printf("INSIDE SWITCH end\n");
+
 }
 
 #endif /* #if defined(CO_USE_UCONEXT) */
@@ -426,12 +446,15 @@ void co_delete(coroutine_t coro)
 void co_call(coroutine_t coro)
 {
 	cothread_ctx *tctx = co_get_thread_ctx();
+	printf("tctx: %p\n",tctx);	
+
 	coroutine *co = (coroutine *) coro, *oldco = tctx->co_curr;
 
 	co->caller = tctx->co_curr;
 	tctx->co_curr = co;
-
+	printf("\nSWITCH CONTEXT NOW\n\n");
 	co_switch_context(&oldco->ctx, &co->ctx);
+	printf("\nCONTEXT SWITCHED\n\n");
 }
 
 void co_resume(void)
