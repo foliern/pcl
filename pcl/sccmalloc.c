@@ -13,7 +13,9 @@
 #include "input.h"
 #include "scc_comm_func.h"
 #include "debugging.h"
+#include <pthread.h>
 
+pthread_mutex_t malloc_lock;
 
 typedef union block {
   struct {
@@ -124,6 +126,7 @@ void SCCInit(uintptr_t *addr)
   /*if(msync(local,SHM_MEMORY_SIZE,MS_SYNC | MS_INVALIDATE))
                 printf("Couldn't sync memory");
   */
+  pthread_mutex_init(&malloc_lock, NULL);
 }
 
 
@@ -141,7 +144,8 @@ void *SCCMallocPtr(size_t size)
 {
   size_t nunits;
   block_t *curr, *prev, *new;
-
+	
+	pthread_mutex_lock(&malloc_lock);
 
   if (freeList == NULL) printf("Couldn't allocate memory!");
   
@@ -231,11 +235,13 @@ void *SCCMallocPtr(size_t size)
         	
 //	if (msync(local,SHM_MEMORY_SIZE,MS_SYNC | MS_INVALIDATE))
 //		printf("Couldn't sync memory");
+	pthread_mutex_unlock(&malloc_lock);
 	return (void*) (curr + 1);
      }
 //	PRT_DBG("						WHILE LOOP!!!");
   } while (curr != freeList && (prev = curr, curr = curr->hdr.next));
 
+  pthread_mutex_unlock(&malloc_lock);
 
   printf("Couldn't allocate memory!");
   return NULL;

@@ -358,7 +358,8 @@ int main(int argc, char **argv)
 	if (nthreads == 1)
 		run_test(NULL);
 	else {
-		thids = (pthread_t *) malloc(nthreads * sizeof(pthread_t));
+	//	thids = (pthread_t *) malloc(nthreads * sizeof(pthread_t));
+		thids = (pthread_t *) SCCMallocPtr(nthreads * sizeof(pthread_t));
 		for (i = 0; i < nthreads; i++) {
 			if (pthread_create(&thids[i], NULL, thread_proc,
 					   NULL)) {

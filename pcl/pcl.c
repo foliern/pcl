@@ -70,24 +70,21 @@ static int co_ctx_stackdir(void)
 static int co_set_context(co_ctx_t *ctx, void *func, char *stkbase, long stksiz)
 {
 
-
+	//no idea why but without this malloc i get problems with the SCCMAllocPtr function;
 	printf("FIRST SCCMALLOC!!!!\n");
-	void* test1=SCCMallocPtr(20);
+/*	void* test1=SCCMallocPtr(20);
 
 	printf("first malloc\n");
         void* malloc_test=malloc(100);
         printf("malloc_test address: %p\n",malloc_test);
-
-	printf("FIRST.1 SCCMALLOC!!!!\n");
-        void* test11=SCCMallocPtr(20);
-
+*/
 	if (getcontext(&ctx->cc))
 		return -1;
-	printf("SECOND SCCMALLOC!!!!\n");
-	void* test2=SCCMallocPtr(20);
+
+//	printf("SECOND SCCMALLOC!!!!\n");
+//	void* test2=SCCMallocPtr(20);
 
 	ctx->cc.uc_link = NULL;
-
 	ctx->cc.uc_stack.ss_sp = stkbase;
 	ctx->cc.uc_stack.ss_size = stksiz - sizeof(long);
 	ctx->cc.uc_stack.ss_flags = 0;
@@ -95,7 +92,7 @@ static int co_set_context(co_ctx_t *ctx, void *func, char *stkbase, long stksiz)
 	makecontext(&ctx->cc, func, 1);
 
 	printf("THIRD SCCMALLOC!!!!\n");
-	void* test3=SCCMallocPtr(20);
+//	void* test3=SCCMallocPtr(20);
 
 	return 0;
 }
@@ -448,11 +445,19 @@ void co_call(coroutine_t coro)
 	cothread_ctx *tctx = co_get_thread_ctx();
 	printf("tctx: %p\n",tctx);	
 
+	printf("coro: %p\n",coro);
+	printf("tctx->co_curr: %p\n",tctx->co_curr);
+	DCMflush();
 	coroutine *co = (coroutine *) coro, *oldco = tctx->co_curr;
-
+	printf("FIRST\n");
+	printf("\noldco: %p\n &oldco:%p\nco: %p\n &co: %p\n",oldco,&oldco,co,&co);
+	printf("\noldco->ctx: %p\n &oldco->ctx:%p\nco->ctx: %p\n &co->ctx: %p\n",oldco->ctx,&oldco->ctx,co->ctx,&co->ctx);
 	co->caller = tctx->co_curr;
 	tctx->co_curr = co;
+	printf("SECOND\n");
+	printf("tctx->co_curr: %p\n",tctx->co_curr);
 	printf("\nSWITCH CONTEXT NOW\n\n");
+	printf("\noldco->ctx: %p\n &oldco->ctx:%p\nco->ctx: %p\n &co->ctx: %p\n",oldco->ctx,&oldco->ctx,co->ctx,&co->ctx);
 	co_switch_context(&oldco->ctx, &co->ctx);
 	printf("\nCONTEXT SWITCHED\n\n");
 }
