@@ -27,7 +27,7 @@
 #include <unistd.h>
 #include <pthread.h>
 #include <pcl.h>
-
+#include <sccmalloc.h>
 
 #define MIN_MEASURE_TIME 2000000ULL
 #define CO_STACK_SIZE (8 * 1024)
@@ -117,6 +117,9 @@ int main(int argc, char **argv)
 {
 	int i, nthreads;
 	pthread_t *thids;
+
+
+	scc_init();
 
 	nthreads = 1;
 	for (i = 1; i < argc; i++) {

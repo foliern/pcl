@@ -133,6 +133,8 @@ int co_thread_init(void)
 	}
 	memset(tctx, 0, sizeof(*tctx));
 	tctx->co_curr = &tctx->co_main;
+	printf("INSIDE CO_THREAD_INIT, tctx:						%p\n",tctx);
+	printf("INSIDE CO_THREAD_INIT, tctx->co_curr:                                   %p\n",tctx->co_curr);
 	if (pthread_setspecific(key, tctx)) {
 		perror("setting thread context");
 		free(tctx);

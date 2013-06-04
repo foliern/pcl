@@ -14,7 +14,6 @@ pcl.lo: pcl.c \
  /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/lib/gcc/i586-unknown-linux-gnu/4.6.1/include/stdarg.h \
  /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/bits/stdio_lim.h \
  /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/bits/sys_errlist.h \
- /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/bits/stdio.h \
  /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/stdlib.h \
  /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/bits/waitflags.h \
  /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/bits/waitstatus.h \
@@ -57,9 +56,7 @@ pcl.lo: pcl.c \
  /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/stdint.h \
  /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/bits/wchar.h \
  /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/string.h \
- /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/xlocale.h \
- /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/bits/string.h \
- /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/bits/string2.h
+ /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/xlocale.h
 
 /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/stdio.h:
 
@@ -90,8 +87,6 @@ pcl.lo: pcl.c \
 /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/bits/stdio_lim.h:
 
 /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/bits/sys_errlist.h:
-
-/shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/bits/stdio.h:
 
 /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/stdlib.h:
 
@@ -186,7 +181,3 @@ pcl.lo: pcl.c \
 /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/string.h:
 
 /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/xlocale.h:
-
-/shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/bits/string.h:
-
-/shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/bits/string2.h:

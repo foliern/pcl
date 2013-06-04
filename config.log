@@ -30,6 +30,9 @@ uname -v = #94-Ubuntu SMP Fri Jul 6 18:00:34 UTC 2012
 PATH: /shared/foliern/soft/bin
 PATH: /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/bin
 PATH: /shared/foliern/snetInstall/bin
+PATH: /shared/foliern/snetInstall/bin
+PATH: /shared/foliern/soft/bin
+PATH: /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/bin
 PATH: /shared/foliern/soft/bin
 PATH: /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/bin
 PATH: /shared/foliern/snetInstall/bin
@@ -92,27 +95,27 @@ gcc: fatal error: no input files
 compilation terminated.
 configure:3066: $? = 1
 configure:3086: checking whether the C compiler works
-configure:3108: gcc    conftest.c  >&5
+configure:3108: gcc -UHAVE__THREAD   conftest.c  >&5
 configure:3112: $? = 0
 configure:3161: result: yes
 configure:3164: checking for C compiler default output file name
 configure:3166: result: a.out
 configure:3172: checking for suffix of executables
-configure:3179: gcc -o conftest    conftest.c  >&5
+configure:3179: gcc -o conftest -UHAVE__THREAD   conftest.c  >&5
 configure:3183: $? = 0
 configure:3205: result: 
 configure:3227: checking whether we are cross compiling
-configure:3235: gcc -o conftest    conftest.c  >&5
+configure:3235: gcc -o conftest -UHAVE__THREAD   conftest.c  >&5
 configure:3239: $? = 0
 configure:3246: ./conftest
 configure:3250: $? = 0
 configure:3265: result: no
 configure:3270: checking for suffix of object files
-configure:3292: gcc -c   conftest.c >&5
+configure:3292: gcc -c -UHAVE__THREAD  conftest.c >&5
 configure:3296: $? = 0
 configure:3317: result: o
 configure:3321: checking whether we are using the GNU C compiler
-configure:3340: gcc -c   conftest.c >&5
+configure:3340: gcc -c -UHAVE__THREAD  conftest.c >&5
 configure:3340: $? = 0
 configure:3349: result: yes
 configure:3358: checking whether gcc accepts -g
@@ -120,7 +123,7 @@ configure:3378: gcc -c -g  conftest.c >&5
 configure:3378: $? = 0
 configure:3419: result: yes
 configure:3436: checking for gcc option to accept ISO C89
-configure:3500: gcc  -c -g -O2  conftest.c >&5
+configure:3500: gcc  -c -UHAVE__THREAD  conftest.c >&5
 configure:3500: $? = 0
 configure:3513: result: none needed
 configure:3544: checking for style of include used by make
@@ -149,7 +152,7 @@ configure:4309: result: yes
 configure:4321: checking for BSD- or MS-compatible name lister (nm)
 configure:4370: result: /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/bin/nm -B
 configure:4488: checking the name lister (/shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/bin/nm -B) interface
-configure:4495: gcc -c -g -O2  conftest.c >&5
+configure:4495: gcc -c -UHAVE__THREAD  conftest.c >&5
 configure:4498: /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/bin/nm -B "conftest.o"
 configure:4501: output
 00000000 B some_variable
@@ -178,14 +181,14 @@ configure:5238: result: strip
 configure:5310: checking for ranlib
 configure:5337: result: ranlib
 configure:5427: checking command to parse /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/bin/nm -B output from gcc object
-configure:5545: gcc -c -g -O2  conftest.c >&5
+configure:5545: gcc -c -UHAVE__THREAD  conftest.c >&5
 configure:5548: $? = 0
 configure:5552: /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/bin/nm -B conftest.o \| sed -n -e 's/^.*[	 ]\([ABCDGIRSTW][ABCDGIRSTW]*\)[	 ][	 ]*\([_A-Za-z][_A-Za-z0-9]*\)$/\1 \2 \2/p' \> conftest.nm
 configure:5555: $? = 0
-configure:5609: gcc -o conftest -g -O2   conftest.c conftstm.o >&5
+configure:5609: gcc -o conftest -UHAVE__THREAD   conftest.c conftstm.o >&5
 configure:5612: $? = 0
 configure:5650: result: ok
-configure:5746: gcc -c -g -O2  conftest.c >&5
+configure:5746: gcc -c -UHAVE__THREAD  conftest.c >&5
 configure:5749: $? = 0
 configure:6459: checking how to run the C preprocessor
 configure:6490: gcc -E  conftest.c
@@ -226,70 +229,70 @@ configure: failed program was:
 | /* end confdefs.h.  */
 | #include <ac_nonexistent.h>
 configure:6592: checking for ANSI C header files
-configure:6612: gcc -c -g -O2  conftest.c >&5
+configure:6612: gcc -c -UHAVE__THREAD  conftest.c >&5
 configure:6612: $? = 0
-configure:6685: gcc -o conftest -g -O2   conftest.c  >&5
+configure:6685: gcc -o conftest -UHAVE__THREAD   conftest.c  >&5
 configure:6685: $? = 0
 configure:6685: ./conftest
 configure:6685: $? = 0
 configure:6696: result: yes
 configure:6709: checking for sys/types.h
-configure:6709: gcc -c -g -O2  conftest.c >&5
+configure:6709: gcc -c -UHAVE__THREAD  conftest.c >&5
 configure:6709: $? = 0
 configure:6709: result: yes
 configure:6709: checking for sys/stat.h
-configure:6709: gcc -c -g -O2  conftest.c >&5
+configure:6709: gcc -c -UHAVE__THREAD  conftest.c >&5
 configure:6709: $? = 0
 configure:6709: result: yes
 configure:6709: checking for stdlib.h
-configure:6709: gcc -c -g -O2  conftest.c >&5
+configure:6709: gcc -c -UHAVE__THREAD  conftest.c >&5
 configure:6709: $? = 0
 configure:6709: result: yes
 configure:6709: checking for string.h
-configure:6709: gcc -c -g -O2  conftest.c >&5
+configure:6709: gcc -c -UHAVE__THREAD  conftest.c >&5
 configure:6709: $? = 0
 configure:6709: result: yes
 configure:6709: checking for memory.h
-configure:6709: gcc -c -g -O2  conftest.c >&5
+configure:6709: gcc -c -UHAVE__THREAD  conftest.c >&5
 configure:6709: $? = 0
 configure:6709: result: yes
 configure:6709: checking for strings.h
-configure:6709: gcc -c -g -O2  conftest.c >&5
+configure:6709: gcc -c -UHAVE__THREAD  conftest.c >&5
 configure:6709: $? = 0
 configure:6709: result: yes
 configure:6709: checking for inttypes.h
-configure:6709: gcc -c -g -O2  conftest.c >&5
+configure:6709: gcc -c -UHAVE__THREAD  conftest.c >&5
 configure:6709: $? = 0
 configure:6709: result: yes
 configure:6709: checking for stdint.h
-configure:6709: gcc -c -g -O2  conftest.c >&5
+configure:6709: gcc -c -UHAVE__THREAD  conftest.c >&5
 configure:6709: $? = 0
 configure:6709: result: yes
 configure:6709: checking for unistd.h
-configure:6709: gcc -c -g -O2  conftest.c >&5
+configure:6709: gcc -c -UHAVE__THREAD  conftest.c >&5
 configure:6709: $? = 0
 configure:6709: result: yes
 configure:6724: checking for dlfcn.h
-configure:6724: gcc -c -g -O2  conftest.c >&5
+configure:6724: gcc -c -UHAVE__THREAD  conftest.c >&5
 configure:6724: $? = 0
 configure:6724: result: yes
 configure:6908: checking for objdir
 configure:6923: result: .libs
 configure:7215: checking if gcc supports -fno-rtti -fno-exceptions
-configure:7233: gcc -c -g -O2  -fno-rtti -fno-exceptions conftest.c >&5
+configure:7233: gcc -c -UHAVE__THREAD  -fno-rtti -fno-exceptions conftest.c >&5
 cc1: warning: command line option '-fno-rtti' is valid for C++/ObjC++ but not for C [enabled by default]
 configure:7237: $? = 0
 configure:7250: result: no
 configure:7270: checking for gcc option to produce PIC
 configure:7542: result: -fPIC -DPIC
 configure:7554: checking if gcc PIC flag -fPIC -DPIC works
-configure:7572: gcc -c -g -O2  -fPIC -DPIC -DPIC conftest.c >&5
+configure:7572: gcc -c -UHAVE__THREAD  -fPIC -DPIC -DPIC conftest.c >&5
 configure:7576: $? = 0
 configure:7589: result: yes
 configure:7613: checking if gcc static flag -static works
 configure:7641: result: yes
 configure:7656: checking if gcc supports -c -o file.o
-configure:7677: gcc -c -g -O2  -o out/conftest2.o conftest.c >&5
+configure:7677: gcc -c -UHAVE__THREAD  -o out/conftest2.o conftest.c >&5
 configure:7681: $? = 0
 configure:7703: result: yes
 configure:7711: checking if gcc supports -c -o file.o
@@ -297,13 +300,13 @@ configure:7758: result: yes
 configure:7791: checking whether the gcc linker (/shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/bin/ld -m elf_i386) supports shared libraries
 configure:8782: result: yes
 configure:8819: checking whether -lc should be explicitly linked in
-configure:8824: gcc -c -g -O2  conftest.c >&5
+configure:8824: gcc -c -UHAVE__THREAD  conftest.c >&5
 configure:8827: $? = 0
 configure:8842: gcc -shared conftest.o  -v -Wl,-soname -Wl,conftest -o conftest 2\>\&1 \| /bin/grep  -lc  \>/dev/null 2\>\&1
 configure:8845: $? = 0
 configure:8857: result: no
 configure:9021: checking dynamic linker characteristics
-configure:9454: gcc -o conftest -g -O2   -Wl,-rpath -Wl,/foo conftest.c  >&5
+configure:9454: gcc -o conftest -UHAVE__THREAD   -Wl,-rpath -Wl,/foo conftest.c  >&5
 configure:9454: $? = 0
 configure:9684: result: GNU/Linux ld.so
 configure:9786: checking how to hardcode library paths into programs
@@ -319,19 +322,19 @@ configure:10404: result: yes
 configure:10441: checking for ANSI C header files
 configure:10545: result: yes
 configure:10554: checking for inline
-configure:10570: gcc -c -g -O2  conftest.c >&5
+configure:10570: gcc -c -UHAVE__THREAD  conftest.c >&5
 configure:10570: $? = 0
 configure:10578: result: inline
 configure:10596: checking for working volatile
-configure:10615: gcc -c -g -O2  conftest.c >&5
+configure:10615: gcc -c -UHAVE__THREAD  conftest.c >&5
 configure:10615: $? = 0
 configure:10622: result: yes
 configure:10630: checking for an ANSI C-conforming const
-configure:10695: gcc -c -g -O2  conftest.c >&5
+configure:10695: gcc -c -UHAVE__THREAD  conftest.c >&5
 configure:10695: $? = 0
 configure:10702: result: yes
 configure:10710: checking whether byte ordering is bigendian
-configure:10725: gcc -c -g -O2  conftest.c >&5
+configure:10725: gcc -c -UHAVE__THREAD  conftest.c >&5
 conftest.c:25:9: error: unknown type name 'not'
 conftest.c:25:15: error: expected '=', ',', ';', 'asm' or '__attribute__' before 'universal'
 conftest.c:25:15: error: unknown type name 'universal'
@@ -365,9 +368,9 @@ configure: failed program was:
 | 	     #endif
 | 	     typedef int dummy;
 | 
-configure:10770: gcc -c -g -O2  conftest.c >&5
+configure:10770: gcc -c -UHAVE__THREAD  conftest.c >&5
 configure:10770: $? = 0
-configure:10788: gcc -c -g -O2  conftest.c >&5
+configure:10788: gcc -c -UHAVE__THREAD  conftest.c >&5
 conftest.c: In function 'main':
 conftest.c:31:4: error: unknown type name 'not'
 conftest.c:31:12: error: expected '=', ',', ';', 'asm' or '__attribute__' before 'endian'
@@ -411,46 +414,46 @@ configure: failed program was:
 | }
 configure:10916: result: no
 configure:10938: checking for memset
-configure:10938: gcc -o conftest -g -O2   conftest.c  >&5
+configure:10938: gcc -o conftest -UHAVE__THREAD   conftest.c  >&5
 conftest.c:47:6: warning: conflicting types for built-in function 'memset' [enabled by default]
 configure:10938: $? = 0
 configure:10938: result: yes
 configure:10938: checking for malloc
-configure:10938: gcc -o conftest -g -O2   conftest.c  >&5
+configure:10938: gcc -o conftest -UHAVE__THREAD   conftest.c  >&5
 conftest.c:48:6: warning: conflicting types for built-in function 'malloc' [enabled by default]
 configure:10938: $? = 0
 configure:10938: result: yes
 configure:10938: checking for free
-configure:10938: gcc -o conftest -g -O2   conftest.c  >&5
+configure:10938: gcc -o conftest -UHAVE__THREAD   conftest.c  >&5
 conftest.c:49:6: warning: conflicting types for built-in function 'free' [enabled by default]
 configure:10938: $? = 0
 configure:10938: result: yes
 configure:10951: checking for makecontext
-configure:10951: gcc -o conftest -g -O2   conftest.c  >&5
+configure:10951: gcc -o conftest -UHAVE__THREAD   conftest.c  >&5
 configure:10951: $? = 0
 configure:10951: result: yes
 configure:10951: checking for getcontext
-configure:10951: gcc -o conftest -g -O2   conftest.c  >&5
+configure:10951: gcc -o conftest -UHAVE__THREAD   conftest.c  >&5
 configure:10951: $? = 0
 configure:10951: result: yes
 configure:10951: checking for swapcontext
-configure:10951: gcc -o conftest -g -O2   conftest.c  >&5
+configure:10951: gcc -o conftest -UHAVE__THREAD   conftest.c  >&5
 configure:10951: $? = 0
 configure:10951: result: yes
 configure:10963: checking for sigaction
-configure:10963: gcc -o conftest -g -O2   conftest.c  >&5
+configure:10963: gcc -o conftest -UHAVE__THREAD   conftest.c  >&5
 configure:10963: $? = 0
 configure:10963: result: yes
 configure:10975: checking for longjmp
-configure:10975: gcc -o conftest -g -O2   conftest.c  >&5
+configure:10975: gcc -o conftest -UHAVE__THREAD   conftest.c  >&5
 configure:10975: $? = 0
 configure:10975: result: yes
 configure:10975: checking for setjmp
-configure:10975: gcc -o conftest -g -O2   conftest.c  >&5
+configure:10975: gcc -o conftest -UHAVE__THREAD   conftest.c  >&5
 configure:10975: $? = 0
 configure:10975: result: yes
 configure:10987: checking for sigaltstack
-configure:10987: gcc -o conftest -g -O2   conftest.c  >&5
+configure:10987: gcc -o conftest -UHAVE__THREAD   conftest.c  >&5
 configure:10987: $? = 0
 configure:10987: result: yes
 configure:11119: creating ./config.status
@@ -492,8 +495,8 @@ ac_cv_c_inline=inline
 ac_cv_c_volatile=yes
 ac_cv_env_CC_set=
 ac_cv_env_CC_value=
-ac_cv_env_CFLAGS_set=
-ac_cv_env_CFLAGS_value=
+ac_cv_env_CFLAGS_set=set
+ac_cv_env_CFLAGS_value=-UHAVE__THREAD
 ac_cv_env_CPPFLAGS_set=
 ac_cv_env_CPPFLAGS_value=
 ac_cv_env_CPP_set=
@@ -583,7 +586,7 @@ AUTOMAKE='${SHELL} /shared/foliern/snetSrc/pcl-1.12/missing --run automake-1.11'
 AWK='gawk'
 CC='gcc'
 CCDEPMODE='depmode=gcc3'
-CFLAGS='-g -O2'
+CFLAGS='-UHAVE__THREAD'
 CPP='gcc -E'
 CPPFLAGS=''
 CYGPATH_W='echo'

@@ -1,1 +1,123 @@
-# dummy
+cobench.o: cobench.c \
+ /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/stdio.h \
+ /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/features.h \
+ /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/sys/cdefs.h \
+ /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/bits/wordsize.h \
+ /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/gnu/stubs.h \
+ /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/gnu/stubs-32.h \
+ /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/lib/gcc/i586-unknown-linux-gnu/4.6.1/include/stddef.h \
+ /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/bits/types.h \
+ /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/bits/typesizes.h \
+ /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/libio.h \
+ /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/_G_config.h \
+ /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/wchar.h \
+ /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/lib/gcc/i586-unknown-linux-gnu/4.6.1/include/stdarg.h \
+ /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/bits/stdio_lim.h \
+ /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/bits/sys_errlist.h \
+ /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/string.h \
+ /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/xlocale.h \
+ /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/sys/time.h \
+ /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/time.h \
+ /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/bits/time.h \
+ /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/sys/select.h \
+ /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/bits/select.h \
+ /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/bits/sigset.h \
+ /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/unistd.h \
+ /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/bits/posix_opt.h \
+ /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/bits/environments.h \
+ /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/bits/confname.h \
+ /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/getopt.h \
+ /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/pthread.h \
+ /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/endian.h \
+ /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/bits/endian.h \
+ /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/bits/byteswap.h \
+ /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/sched.h \
+ /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/bits/sched.h \
+ /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/bits/pthreadtypes.h \
+ /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/bits/setjmp.h \
+ ../include/pcl.h ../include/sccmalloc.h \
+ /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/lib/gcc/i586-unknown-linux-gnu/4.6.1/include/stdint.h \
+ /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/stdint.h \
+ /shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/bits/wchar.h
+
+/shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/stdio.h:
+
+/shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/features.h:
+
+/shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/sys/cdefs.h:
+
+/shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/bits/wordsize.h:
+
+/shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/gnu/stubs.h:
+
+/shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/gnu/stubs-32.h:
+
+/shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/lib/gcc/i586-unknown-linux-gnu/4.6.1/include/stddef.h:
+
+/shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/bits/types.h:
+
+/shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/bits/typesizes.h:
+
+/shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/libio.h:
+
+/shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/_G_config.h:
+
+/shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/wchar.h:
+
+/shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/lib/gcc/i586-unknown-linux-gnu/4.6.1/include/stdarg.h:
+
+/shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/bits/stdio_lim.h:
+
+/shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/bits/sys_errlist.h:
+
+/shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/string.h:
+
+/shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/xlocale.h:
+
+/shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/sys/time.h:
+
+/shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/time.h:
+
+/shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/bits/time.h:
+
+/shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/sys/select.h:
+
+/shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/bits/select.h:
+
+/shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/bits/sigset.h:
+
+/shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/unistd.h:
+
+/shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/bits/posix_opt.h:
+
+/shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/bits/environments.h:
+
+/shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/bits/confname.h:
+
+/shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/getopt.h:
+
+/shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/pthread.h:
+
+/shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/endian.h:
+
+/shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/bits/endian.h:
+
+/shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/bits/byteswap.h:
+
+/shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/sched.h:
+
+/shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/bits/sched.h:
+
+/shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/bits/pthreadtypes.h:
+
+/shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/bits/setjmp.h:
+
+../include/pcl.h:
+
+../include/sccmalloc.h:
+
+/shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/lib/gcc/i586-unknown-linux-gnu/4.6.1/include/stdint.h:
+
+/shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/stdint.h:
+
+/shared/foliern/sccLinux/buildroot-2011.11/output/host/usr/i586-unknown-linux-gnu/sysroot/usr/include/bits/wchar.h:
