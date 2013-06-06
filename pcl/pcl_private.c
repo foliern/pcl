@@ -32,11 +32,11 @@ static cothread_ctx *co_get_global_ctx(void)
 {
 	static cothread_ctx tctx;
 
-	printf("tctx.co_curr: %p\n",tctx.co_curr); 
+	printf("INSIDE CO_GET_GLOBAL_CTX, tctx.co_curr:		%p\n",tctx.co_curr); 
 	if (tctx.co_curr == NULL)
 		tctx.co_curr = &tctx.co_main;
 	
-	printf("tctx.co_curr: %p\n",tctx.co_curr);
+	printf("INSIDE CO_GET_GLOBAL_CTX, tctx.co_curr:		%p\n",tctx.co_curr);
 	return &tctx;
 }
 
@@ -137,7 +137,8 @@ int co_thread_init(void)
 	printf("INSIDE CO_THREAD_INIT, tctx->co_curr:                                   %p\n",tctx->co_curr);
 	if (pthread_setspecific(key, tctx)) {
 		perror("setting thread context");
-		free(tctx);
+		//free(tctx);
+		SCCFreePtr(tctx);
 		return -1;
 	}
 
@@ -151,13 +152,13 @@ void co_thread_cleanup(void)
 
 cothread_ctx *co_get_thread_ctx(void)
 {
-	printf("valid_key: %d\n",valid_key);
-	printf("key: %d\n",key);
+	printf("INSIDE CO_GET_THREAD_CTX, valid_key:		%d\n",valid_key);
+	printf("INSIDE CO_GET_THREAD_CTX, key:			%d\n",key);
 	
 	cothread_ctx *tctx = (cothread_ctx *)
 		(valid_key ? pthread_getspecific(key): NULL);
 	
-	printf("tctx: %p\n",tctx);
+	printf("INSIDE CO_GET_THREAD_CTX, tctx:			%p\n",tctx);
 	/*
 	 * Even in MT mode, allows for the main thread to not call
 	 * the co_thread_init()/co_thread_cleanup() functions.

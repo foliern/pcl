@@ -24,7 +24,7 @@ void *SCCAddr2Ptr(lut_addr_t addr);
 //void SCCInit(unsigned char size);
 void SCCInit(uintptr_t  *addr);
 void SCCStop(void);
-
+void *SCCGetlocal(void);
 void *SCCMallocPtr(size_t size);
 unsigned char SCCMallocLut(size_t size);
 void SCCFree(void *p);

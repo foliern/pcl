@@ -129,7 +129,9 @@ void SCCInit(uintptr_t *addr)
   pthread_mutex_init(&malloc_lock, NULL);
 }
 
-
+void *SCCGetlocal(void){
+	return local;
+}
 
 void SCCStop(void)
 {

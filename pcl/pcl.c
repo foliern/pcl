@@ -70,21 +70,11 @@ static int co_ctx_stackdir(void)
 static int co_set_context(co_ctx_t *ctx, void *func, char *stkbase, long stksiz)
 {
 
-	//no idea why but without this malloc i get problems with the SCCMAllocPtr function;
-	printf("FIRST SCCMALLOC!!!!\n");
-/*	void* test1=SCCMallocPtr(20);
-
-	printf("first malloc\n");
-        void* malloc_test=malloc(100);
-        printf("malloc_test address: %p\n",malloc_test);
-*/
 	if (getcontext(&ctx->cc))
 		return -1;
-	printf("INSIDE CO_SET_CONTEXT, ctx->cc: 												%p\n",ctx->cc);
-	printf("INSIDE CO_SET_CONTEXT, ctx->cc->uc_link:                                                                                        %p\n",ctx->cc.uc_link);
-	printf("INSIDE CO_SET_CONTEXT, ctx->cc->uc_stack:                                                                                       %p\n",ctx->cc.uc_stack);
-//	printf("SECOND SCCMALLOC!!!!\n");
-//	void* test2=SCCMallocPtr(20);
+	printf("INSIDE CO_SET_CONTEXT, ctx->cc:			%p\n",ctx->cc);
+	printf("INSIDE CO_SET_CONTEXT, ctx->cc->uc_link:	%p\n",ctx->cc.uc_link);
+	printf("INSIDE CO_SET_CONTEXT, ctx->cc->uc_stack:	%p\n",ctx->cc.uc_stack);
 
 	ctx->cc.uc_link = NULL;
 	ctx->cc.uc_stack.ss_sp = stkbase;
@@ -93,18 +83,15 @@ static int co_set_context(co_ctx_t *ctx, void *func, char *stkbase, long stksiz)
 
 	makecontext(&ctx->cc, func, 1);
 
-	printf("THIRD SCCMALLOC!!!!\n");
-//	void* test3=SCCMallocPtr(20);
-
 	return 0;
 }
 
 static void co_switch_context(co_ctx_t *octx, co_ctx_t *nctx)
 {
-	printf("INSIDE CO_SWITCH_CONTEXT, octx:									%p\n",octx);
-	printf("INSIDE CO_SWITCH_CONTEXT, octx->cc:                                                             %p\n",octx->cc);
-	printf("INSIDE CO_SWITCH_CONTEXT, nctx:                                                                 %p\n",nctx);
-	printf("INSIDE CO_SWITCH_CONTEXT, nctx->cc:                                                             %p\n",nctx->cc);
+	printf("INSIDE CO_SWITCH_CONTEXT, octx:			%p\n",octx);
+	printf("INSIDE CO_SWITCH_CONTEXT, octx->cc:		%p\n",octx->cc);
+	printf("INSIDE CO_SWITCH_CONTEXT, nctx:			%p\n",nctx);
+	printf("INSIDE CO_SWITCH_CONTEXT, nctx->cc:		%p\n",nctx->cc);
 
 	cothread_ctx *tctx = co_get_thread_ctx();
 
@@ -384,10 +371,8 @@ static int co_set_context(co_ctx_t *ctx, void *func, char *stkbase, long stksiz)
 
 static void co_switch_context(co_ctx_t *octx, co_ctx_t *nctx)
 {
-	printf("INSIDE SWITCH begin\n");
 	if (setjmp(octx->cc) == 0)
 		longjmp(nctx->cc, 1);
-	printf("INSIDE SWITCH end\n");
 
 }
 
@@ -420,7 +405,7 @@ coroutine_t co_create(void (*func)(void *), void *data, void *stack, int size)
 		alloc = size;
 	}
 	co = stack;
-	printf("!!!!!!!!!!!!!!!!!!!!!!!!                                        co: %p\n", co);
+	printf("INSIDE CO_CREATE		co: %p\n", co);
 	stack = (char *) stack + CO_STK_COROSIZE;
 	co->alloc = alloc;
 	co->func = func;
@@ -428,15 +413,17 @@ coroutine_t co_create(void (*func)(void *), void *data, void *stack, int size)
 	if (co_set_context(&co->ctx, co_runner, stack, size - CO_STK_COROSIZE) < 0) {
 	
 		if (alloc)
-			free(co);
+			//free(co);
+			SCCFreePtr(co);
 		return NULL;
 	}
-	printf("!!!!!!!!!!!!!!!!!!!!!!!!					co->ctx: %p\n",co->ctx);
+	printf("INSIDE CO_CREATE		co->ctx: %p\n",co->ctx);
 	return (coroutine_t) co;
 }
 
 void co_delete(coroutine_t coro)
 {
+	printf("INSIDE CO_DELETE,       START\n");
 	cothread_ctx *tctx = co_get_thread_ctx();
 	coroutine *co = (coroutine *) coro;
 
@@ -445,16 +432,20 @@ void co_delete(coroutine_t coro)
 			tctx->co_curr);
 		exit(1);
 	}
-	if (co->alloc)
-		free(co);
+	if (co->alloc){
+		printf("INSIDE CO_DELETE,	FREE\n");
+		//free(co);
+		SCCFreePtr(co);
+	}
+	printf("INSIDE CO_DELETE,       END\n");
 }
 
 void co_call(coroutine_t coro)
 {
 	cothread_ctx *tctx = co_get_thread_ctx();
 
-        printf("coro: %p\n",coro);
-        printf("tctx->co_curr: %p\n",tctx->co_curr);
+        printf("INSIDE CO_CALL		coro: %p\n",coro);
+        printf("INSIDE CO_CALL		tctx->co_curr: %p\n",tctx->co_curr);
 
         coroutine *co = (coroutine *) coro, *oldco = tctx->co_curr;
 
@@ -462,7 +453,7 @@ void co_call(coroutine_t coro)
         tctx->co_curr = co;
 
 
-        printf("\noldco->ctx: %p\n &oldco->ctx:%p\nco->ctx: %p\n &co->ctx: %p\n",oldco->ctx,&oldco->ctx,co->ctx,&co->ctx);
+        printf("INSIDE CO_CALL		oldco->ctx: %p\n INSIDE CO_CALL		&oldco->ctx:%p\n INSIDE CO_CALL		co->ctx: %p\n INSIDE CO_CALL		&co->ctx: %p\n",oldco->ctx,&oldco->ctx,co->ctx,&co->ctx);
         printf("SWITCH CONTEXT NOW                                      to coro: %p, co->ctx: %p\n",coro,co->ctx);
 
         co_switch_context(&oldco->ctx, &co->ctx);

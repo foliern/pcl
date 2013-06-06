@@ -27,122 +27,118 @@
 #include <unistd.h>
 #include <pthread.h>
 #include <pcl.h>
+#include <stdlib.h>
+#include <scc_comm_func.h>
 #include <sccmalloc.h>
 
-#define MIN_MEASURE_TIME 2000000ULL
 #define CO_STACK_SIZE (8 * 1024)
 
+coroutine_t coro1,coro2;
 
-static unsigned long long getustime(void)
+void fun(void *id)
 {
-	struct timeval tm;
+  
+  int idd = *((int*)id);
+	printf("From coro %d\n",idd);
 
-	gettimeofday(&tm, NULL);
-
-	return tm.tv_sec * 1000000ULL + tm.tv_usec;
-}
-
-static void switch_bench(void *data)
-{
-	volatile unsigned long *sw_counter = (unsigned long *) data;
-
-	for (;;) {
-		(*sw_counter)--;
-		co_resume();
+	int a = 0;
+	while(1){
+		printf("Coro %d, a %d\n",idd,a);
+		a++;
+		if(a%5 == 0)co_resume();
 	}
 }
 
-static void *run_test(void *data)
+void *thread_proc()
 {
+		
 	int i, ntimes;
-	coroutine_t coro;
-	unsigned long nswitches, sw_counter;
-	unsigned long long ts, te;
 
-	fprintf(stdout, "[%p] measuring co_create+co_delete performance ...\n",
-		pthread_self());
-	fflush(stdout);
-
-	ntimes = 10000;
-	do {
-		ts = getustime();
-		for (i = 0; i < ntimes; i++) {
-			if ((coro = co_create(switch_bench, &sw_counter, NULL,
-					      CO_STACK_SIZE)) != NULL)
-				co_delete(coro);
+	//fprintf(stdout, "[%p] measuring co_create+co_delete performance ...\n",pthread_self());
+	printf("[%p] Inside runTest now create two coro and run them\n",pthread_self());
+	sleep(3);
+	//coroutine_t co_create(void *func, void *data, void *stack, int stacksize);
+	
+	for(i=0;i<10;i++)
+	{
+		if(i%2)
+		{
+			DCMflush();
+			co_call(coro1);
+			DCMflush();
 		}
-		te = getustime();
-		ntimes *= 4;
-	} while ((te - ts) < MIN_MEASURE_TIME);
-
-	fprintf(stdout, "[%p] %g usec\n", pthread_self(),
-		(double) (te - ts) / (double) ntimes);
-
-	if ((coro = co_create(switch_bench, &sw_counter, NULL,
-			      CO_STACK_SIZE)) != NULL) {
-		fprintf(stdout, "[%p] measuring switch performance ...\n",
-			pthread_self());
-		fflush(stdout);
-
-		sw_counter = nswitches = 10000;
-		do {
-			ts = getustime();
-			while (sw_counter)
-				co_call(coro);
-			te = getustime();
-			sw_counter = (nswitches *= 4);
-		} while ((te - ts) < MIN_MEASURE_TIME);
-
-		fprintf(stdout, "[%p] %g usec\n", pthread_self(),
-			(double) (te - ts) / (double) (2 * nswitches));
-
-		co_delete(coro);
+		else
+		{
+			DCMflush();
+			co_call(coro2);
+			DCMflush();	
+		}
+		sleep(3);
 	}
+	
 
-	return NULL;
-}
-
-static void *thread_proc(void *data)
-{
-	void *result;
-
-	co_thread_init();
-	result = run_test(data);
-	co_thread_cleanup();
-
-	return result;
 }
 
 int main(int argc, char **argv)
 {
-	int i, nthreads;
-	pthread_t *thids;
-
 
 	scc_init();
+	void* local=SCCGetlocal();
+  	co_thread_init();
+	pthread_t *thid;
+	
+	int *data1,*data2;
 
-	nthreads = 1;
-	for (i = 1; i < argc; i++) {
-		if (strcmp(argv[i], "-n") == 0) {
-			if (++i < argc)
-				nthreads = atoi(argv[i]);
-		}
+if (SccGetNodeID()==0){
+//	data1 = malloc(sizeof(int));
+//	data2 = malloc(sizeof(int));
+	data1 = SCCMallocPtr(sizeof(int));
+        data2 = SCCMallocPtr(sizeof(int));
+	*data1	= 1;
+	*data2	= 2;
+
+	coro1 = co_create(fun, (void*) data1, NULL, CO_STACK_SIZE);
+	coro2 = co_create(fun, (void*) data2, NULL, CO_STACK_SIZE);
+	
+	printf("coro1: %p\n",coro1);
+        printf("coro2: %p\n",coro2);
+
+//	thid = malloc(sizeof(pthread_t));
+	thid =SCCMallocPtr(sizeof(pthread_t));
+	int res = pthread_create(thid, NULL, thread_proc, NULL);
+	if(res)
+	{
+		perror("creating worker threads");
+		return 1;
 	}
-	if (nthreads == 1)
-		run_test(NULL);
-	else {
-		thids = (pthread_t *) malloc(nthreads * sizeof(pthread_t));
-		for (i = 0; i < nthreads; i++) {
-			if (pthread_create(&thids[i], NULL, thread_proc,
-					   NULL)) {
-				perror("creating worker threads");
-				return 1;
-			}
-		}
-		for (i = 0; i < nthreads; i++)
-			pthread_join(thids[i], NULL);
-	}
+	
+//	co_delete(coro1);
+//	co_delete(coro2);
+	
+	pthread_join(*thid, NULL);
+	co_thread_cleanup();
+}else{
+	coro1= local+0x11b0;
+	coro2=local+0x33b8;
+	printf("coro1: %p\n",coro1);
+	printf("coro2: %p\n",coro2);
+	
+	thid =SCCMallocPtr(sizeof(pthread_t));
+        int res = pthread_create(thid, NULL, thread_proc, NULL);
+        if(res)
+        {
+                perror("creating worker threads");
+                return 1;
+        }
+	
+//	co_delete(coro1);
+//        co_delete(coro2);
+
+        pthread_join(*thid, NULL);
+        co_thread_cleanup();
+
+}
+
 
 	return 0;
 }
-
