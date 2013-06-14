@@ -166,7 +166,7 @@ void *SCCMallocPtr(size_t size)
 //  PRT_DBG("size:				%zu\n",size);
 //  PRT_DBG("nunits:				%zu\n",nunits);
   do {
-    PRT_DBG("\ncurr->hdr.size:					%zu\n",curr->hdr.size);
+//    PRT_DBG("\ncurr->hdr.size:					%zu\n",curr->hdr.size);
     if (curr->hdr.size >= nunits) {
       if (curr->hdr.size == nunits) {
       
@@ -233,7 +233,7 @@ void *SCCMallocPtr(size_t size)
 //      PRT_DBG("freeList:                            %p\n",freeList);
 //      PRT_DBG("freeList->hdr.next:                  %p\n",freeList->hdr.next);
 //      PRT_DBG("freeList->hdr.size:                  %zu\n\n",freeList->hdr.size);
-      PRT_DBG("RETURN: 	                       	    %p\n\n",curr+1);
+//      PRT_DBG("RETURN: 	                       	    %p\n\n",curr+1);
         	
 //	if (msync(local,SHM_MEMORY_SIZE,MS_SYNC | MS_INVALIDATE))
 //		printf("Couldn't sync memory");

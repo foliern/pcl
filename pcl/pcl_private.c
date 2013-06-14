@@ -32,11 +32,11 @@ static cothread_ctx *co_get_global_ctx(void)
 {
 	static cothread_ctx tctx;
 
-	printf("INSIDE CO_GET_GLOBAL_CTX, tctx.co_curr:		%p\n",tctx.co_curr); 
+//	printf("INSIDE CO_GET_GLOBAL_CTX, tctx.co_curr:		%p\n",tctx.co_curr); 
 	if (tctx.co_curr == NULL)
 		tctx.co_curr = &tctx.co_main;
 	
-	printf("INSIDE CO_GET_GLOBAL_CTX, tctx.co_curr:		%p\n",tctx.co_curr);
+//	printf("INSIDE CO_GET_GLOBAL_CTX, tctx.co_curr:		%p\n",tctx.co_curr);
 	return &tctx;
 }
 
@@ -134,7 +134,7 @@ int co_thread_init(void)
 	memset(tctx, 0, sizeof(*tctx));
 	tctx->co_curr = &tctx->co_main;
 	printf("INSIDE CO_THREAD_INIT, tctx:						%p\n",tctx);
-	printf("INSIDE CO_THREAD_INIT, tctx->co_curr:                                   %p\n",tctx->co_curr);
+//	printf("INSIDE CO_THREAD_INIT, tctx->co_curr:                                   %p\n",tctx->co_curr);
 	if (pthread_setspecific(key, tctx)) {
 		perror("setting thread context");
 		//free(tctx);
@@ -152,8 +152,8 @@ void co_thread_cleanup(void)
 
 cothread_ctx *co_get_thread_ctx(void)
 {
-	printf("INSIDE CO_GET_THREAD_CTX, valid_key:		%d\n",valid_key);
-	printf("INSIDE CO_GET_THREAD_CTX, key:			%d\n",key);
+//	printf("INSIDE CO_GET_THREAD_CTX, valid_key:		%d\n",valid_key);
+//	printf("INSIDE CO_GET_THREAD_CTX, key:			%d\n",key);
 	
 	cothread_ctx *tctx = (cothread_ctx *)
 		(valid_key ? pthread_getspecific(key): NULL);

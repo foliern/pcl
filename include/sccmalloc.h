@@ -28,7 +28,7 @@ void *SCCGetlocal(void);
 void *SCCMallocPtr(size_t size);
 unsigned char SCCMallocLut(size_t size);
 void SCCFree(void *p);
-
+void SCCFreePtr(void *p);
 void *SccGetlocal(void);
 
 int DCMflush();

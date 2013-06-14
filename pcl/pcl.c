@@ -72,10 +72,10 @@ static int co_set_context(co_ctx_t *ctx, void *func, char *stkbase, long stksiz)
 
 	if (getcontext(&ctx->cc))
 		return -1;
-	printf("INSIDE CO_SET_CONTEXT, ctx->cc:			%p\n",ctx->cc);
+/*	printf("INSIDE CO_SET_CONTEXT, ctx->cc:			%p\n",ctx->cc);
 	printf("INSIDE CO_SET_CONTEXT, ctx->cc->uc_link:	%p\n",ctx->cc.uc_link);
 	printf("INSIDE CO_SET_CONTEXT, ctx->cc->uc_stack:	%p\n",ctx->cc.uc_stack);
-
+*/
 	ctx->cc.uc_link = NULL;
 	ctx->cc.uc_stack.ss_sp = stkbase;
 	ctx->cc.uc_stack.ss_size = stksiz - sizeof(long);
@@ -88,11 +88,11 @@ static int co_set_context(co_ctx_t *ctx, void *func, char *stkbase, long stksiz)
 
 static void co_switch_context(co_ctx_t *octx, co_ctx_t *nctx)
 {
-	printf("INSIDE CO_SWITCH_CONTEXT, octx:			%p\n",octx);
+/*	printf("INSIDE CO_SWITCH_CONTEXT, octx:			%p\n",octx);
 	printf("INSIDE CO_SWITCH_CONTEXT, octx->cc:		%p\n",octx->cc);
 	printf("INSIDE CO_SWITCH_CONTEXT, nctx:			%p\n",nctx);
 	printf("INSIDE CO_SWITCH_CONTEXT, nctx->cc:		%p\n",nctx->cc);
-
+*/
 	cothread_ctx *tctx = co_get_thread_ctx();
 
 	if (swapcontext(&octx->cc, &nctx->cc) < 0) {
@@ -405,7 +405,7 @@ coroutine_t co_create(void (*func)(void *), void *data, void *stack, int size)
 		alloc = size;
 	}
 	co = stack;
-	printf("INSIDE CO_CREATE		co: %p\n", co);
+//	printf("INSIDE CO_CREATE		co: %p\n", co);
 	stack = (char *) stack + CO_STK_COROSIZE;
 	co->alloc = alloc;
 	co->func = func;
@@ -417,13 +417,13 @@ coroutine_t co_create(void (*func)(void *), void *data, void *stack, int size)
 			SCCFreePtr(co);
 		return NULL;
 	}
-	printf("INSIDE CO_CREATE		co->ctx: %p\n",co->ctx);
+//	printf("INSIDE CO_CREATE		co->ctx: %p\n",co->ctx);
 	return (coroutine_t) co;
 }
 
 void co_delete(coroutine_t coro)
 {
-	printf("INSIDE CO_DELETE,       START\n");
+//	printf("INSIDE CO_DELETE,       START\n");
 	cothread_ctx *tctx = co_get_thread_ctx();
 	coroutine *co = (coroutine *) coro;
 
@@ -433,33 +433,34 @@ void co_delete(coroutine_t coro)
 		exit(1);
 	}
 	if (co->alloc){
-		printf("INSIDE CO_DELETE,	FREE\n");
+//		printf("INSIDE CO_DELETE,	FREE\n");
 		//free(co);
 		SCCFreePtr(co);
 	}
-	printf("INSIDE CO_DELETE,       END\n");
+//	printf("INSIDE CO_DELETE,       END\n");
 }
 
 void co_call(coroutine_t coro)
 {
+	DCMflush(); 
 	cothread_ctx *tctx = co_get_thread_ctx();
 
-        printf("INSIDE CO_CALL		coro: %p\n",coro);
+/*        printf("INSIDE CO_CALL		coro: %p\n",coro);
         printf("INSIDE CO_CALL		tctx->co_curr: %p\n",tctx->co_curr);
-
+*/
         coroutine *co = (coroutine *) coro, *oldco = tctx->co_curr;
 
         co->caller = tctx->co_curr;
         tctx->co_curr = co;
 
 
-        printf("INSIDE CO_CALL		oldco->ctx: %p\n INSIDE CO_CALL		&oldco->ctx:%p\n INSIDE CO_CALL		co->ctx: %p\n INSIDE CO_CALL		&co->ctx: %p\n",oldco->ctx,&oldco->ctx,co->ctx,&co->ctx);
-        printf("SWITCH CONTEXT NOW                                      to coro: %p, co->ctx: %p\n",coro,co->ctx);
+/*        printf("INSIDE CO_CALL		oldco->ctx: %p\n INSIDE CO_CALL		&oldco->ctx:%p\n INSIDE CO_CALL		co->ctx: %p\n INSIDE CO_CALL		&co->ctx: %p\n",oldco->ctx,&oldco->ctx,co->ctx,&co->ctx);
+*/        printf("SWITCH CONTEXT NOW                                      to coro: %p, co->ctx: %p\n",coro,co->ctx);
 
         co_switch_context(&oldco->ctx, &co->ctx);
 
         printf("CONTEXT SWITCHED                                        to coro: %p, co->ctx: %p\n",coro,co->ctx);
-
+	DCMflush(); 
 }
 
 
