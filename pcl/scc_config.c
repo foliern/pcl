@@ -1,7 +1,7 @@
 // ------------------------------------------------------------------------------------------------
 // 
 // ****
-v// ****  (C) Copyright 2006, 2007 by Intel Corporation
+// ****  (C) Copyright 2006, 2007 by Intel Corporation
 // ****      proprietary and confidential
 // ****
 // 
