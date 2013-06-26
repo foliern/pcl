@@ -10,9 +10,6 @@
 #define REMOTE_LUT  (LOCAL_LUT + local_pages)
 
 
-//extern void *remote;
-//extern unsigned char local_pages;
-
 typedef struct {
   unsigned char node, lut;
   uint32_t offset;
@@ -21,15 +18,13 @@ typedef struct {
 lut_addr_t SCCPtr2Addr(void *p);
 void *SCCAddr2Ptr(lut_addr_t addr);
 
-//void SCCInit(unsigned char size);
+
 void SCCInit(uintptr_t  *addr);
 void SCCStop(void);
 void *SCCGetlocal(void);
 void *SCCMallocPtr(size_t size);
-unsigned char SCCMallocLut(size_t size);
 void SCCFree(void *p);
 void SCCFreePtr(void *p);
-void *SccGetlocal(void);
 
 int DCMflush();
 

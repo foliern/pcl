@@ -32,11 +32,9 @@ static cothread_ctx *co_get_global_ctx(void)
 {
 	static cothread_ctx tctx;
 
-//	printf("INSIDE CO_GET_GLOBAL_CTX, tctx.co_curr:		%p\n",tctx.co_curr); 
 	if (tctx.co_curr == NULL)
 		tctx.co_curr = &tctx.co_main;
 	
-//	printf("INSIDE CO_GET_GLOBAL_CTX, tctx.co_curr:		%p\n",tctx.co_curr);
 	return &tctx;
 }
 

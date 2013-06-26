@@ -15,24 +15,22 @@
 #include "input.h"
 #include "debugging.h"
 
+//used to write SHM start address into MPB
 uintptr_t  addr=0x0;
 
 
-// global variables for the LUT, PINS and LOCKS
+// global variables for the MPB, LUT, PINS, LOCKS and AIR
 t_vcharp mpbs[48];
 t_vcharp locks[CORES];
 volatile int *irq_pins[CORES];
 volatile uint64_t *luts[CORES];
 AIR atomic_inc_regs[2*CORES];
 
-//AIR function first declaration forLUT remapping synchronisation
+//AIR function first declaration
 void atomic_incR(AIR *reg, int *value);
 void atomic_decR(AIR *reg, int value);
 void atomic_readR(AIR *reg, int *value);
 void atomic_writeR(AIR *reg, int value);
-
-
-bool remap =false;
 
 int node_location;
 static int num_nodes = 0;
@@ -53,7 +51,7 @@ void scc_init(){
 
 //INIT START!!!
 
-   remap=true;
+   //NR_WORKERS is a constant defined in include/input.h
    num_nodes = NR_WORKERS;
 
    sigemptyset(&signal_mask);
@@ -102,7 +100,7 @@ void scc_init(){
 	atomic_inc_regs[CORES+cpu].counter 	= air_baseF + 2*cpu;
 	atomic_inc_regs[CORES+cpu].init 	= air_baseF + 2*cpu + 1;
 	if(node_location == MASTER){
-		// only one core needs to call this
+		// only one core(MASTER) needs to call this
 		*atomic_inc_regs[cpu].init = 0;
 		*atomic_inc_regs[CORES+cpu].init = 0;
 	}
@@ -118,6 +116,10 @@ void scc_init(){
 
    int i, lut, origin;
 
+
+/*Because we used all the AIR in the mailbox to run a first version, atomic_inc_regs 30 is used here because to test it we never run worker Nr. 30
+ * but in a proper version this should be changed back to the out-commented line above each atomic operation
+ */
    if(node_location != MASTER){
 	   int value=-1;
 	   PRT_DBG("Wait for MASTER'S LUT MAPPING!!! \n");
@@ -132,21 +134,24 @@ void scc_init(){
 	   else
 		   //atomic_incR(&atomic_inc_regs[MASTER],&value);
 		   atomic_incR(&atomic_inc_regs[30],&value);
-	//debugging lines
+	//debugging part start, can be deleted later
 		//atomic_readR(&atomic_inc_regs[MASTER],&value);
 		atomic_readR(&atomic_inc_regs[30],&value);
 		PRT_DBG("value= %d\n",value);
-	//debugging lines end		
+	//debugging part end
 
 
 	   PRT_DBG("AIR==1 -> MASTER has finished LUT mapping.\n");
    }
 
 
-  /* 
-//LUT MAPPPING WHICH TAKES LUT ENTRIES 20-41 FROM EACH CORE AND MAPPS THEN INTO THE MASTER CORE, AFTERWARDS EACH CORE MAPS THE MASTER LUT ENTRIE 41-192 INT HIS OWN CORE
 
-   if(node_location == MASTER){
+/* LUT MAPPPING WHICH TAKES LUT ENTRIES 20-41 FROM EACH CORE AND MAPPS THEM INTO THE MASTER CORE, AFTERWARDS EACH CORE MAPS THE MASTER LUT ENTRY 41-192 IN HIS OWN CORE
+ * We was not sure if this approach works therefore we used the for sure working LUT-remapping version below to run a first version.
+ * But even this approach should work properly, maybe there is some bug in the for loops therefore check it properly via "sccDump -c 0x00" (e.g. for the Master)
+ * on each core before you use it
+ */
+/*   if(node_location == MASTER){
        for (i = 1; i < CORES && num_pages < max_pages; i++) {
 	   for (lut = 20; lut < PAGES_PER_CORE && num_pages < max_pages; lut++) {
 
@@ -175,7 +180,13 @@ void scc_init(){
    
 */
 
-//
+/*
+ * LUT MAPPPING WHICH TAKES UNUSED ENTRIES 0-40 FROM EACH UNUSED CORE AND MAPPS THEM INTO THE MASTER CORE,
+ * AFTERWARDS EACH CORE MAPS THE MASTER LUT ENTRY 41-192 IN HIS OWN CORE
+ * the problem of this mapping is that it can not be used for 48 cores, because in that case we don't have unused cores,
+ * therefore change it back to the version above but don't forget to check if the mapping above is correct
+ *
+ */
 num_pages=0;
 i=1;
 lut=0;
@@ -192,7 +203,7 @@ for (i = 1; i < CORES / num_nodes && num_pages < max_pages; i++) {
 
 
 //***********************************************
-
+// some inits for the MPB
     flush();
     START(node_location) = 0;
     END(node_location) = 0;
@@ -201,7 +212,11 @@ for (i = 1; i < CORES / num_nodes && num_pages < max_pages; i++) {
     WRITING(node_location) = false;
 
 //***********************************************
-
+/*
+ * synchronisation in the init state:
+ * The Master maps the SHM and writes the SHM Start-address to the MPB such that each worker can read it and we can get a proper SHM
+ *
+ */
 
 if(node_location == MASTER){
 	
@@ -213,7 +228,11 @@ if(node_location == MASTER){
 	atomic_writeR(&atomic_inc_regs[30],AIR_LUT_SYNCH_VALUE);
 }else{
 
-	//TWO TIMES BECAUSE OF POINTER MOVING IN CPY_MPB_TO_MEM--> SOLUTION FIXED WRITE BECAUSE THIS ONE CAUSES PROBLEMS
+	/*
+	 * READING AND WRITING BACK AFTERWARDS BECAUSE OF POINTER MOVING IN CPY_MPB_TO_MEM
+	 * solve this case, by using a write to a fixed unused MPB address
+	 *
+	 */
 
 	cpy_mpb_to_mem(0, (void *)&addr, sizeof(uintptr_t));
     	cpy_mem_to_mpb(0, (void *)&addr, sizeof(uintptr_t));
@@ -227,6 +246,12 @@ if(node_location == MASTER){
   unlock(node_location);
 
 }
+//--------------------------------------------------------------------------------------
+// FUNCTION: SccGetNodeID
+//--------------------------------------------------------------------------------------
+// Returns node's ID
+//--------------------------------------------------------------------------------------
+
 int SccGetNodeID(void){
 	return node_location;
 }
